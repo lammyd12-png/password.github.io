@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Nhập mật khẩu</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #a0c4ff, #bde0fe);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .box {
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  }
+  input {
+    padding: 12px;
+    width: 90%;
+    margin-top: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+  }
+  button {
+    margin-top: 15px;
+    padding: 12px 20px;
+    background: #4f8cff;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  button:hover {
+    background: #3b73d1;
+  }
+  .error {
+    color: red;
+    margin-top: 12px;
+  }
+</style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Nhập mật khẩu</h2>
+  <p id="title"></p>
+  <input type="password" id="pw" placeholder="Nhập mật khẩu...">
+  <button onclick="check()">Mở thư</button>
+  <p class="error" id="error"></p>
+</div>
+
+<script>
+const data = {
+"duc-an": {"pw": "271801", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-3"},
+"hoang-an": {"pw": "331902", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-4"},
+"nguyen-huy-anh": {"pw": "241803", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-5"},
+"hoang-bach": {"pw": "350904", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-6"},
+"kien-cuong": {"pw": "331705", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-7"},
+"nguyen-duc-dung": {"pw": "212008", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-8"},
+"nguyen-the-hao": {"pw": "381509", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-9"},
+"nguyen-minh-hieu": {"pw": "371010", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-10"},
+"trinh-huy-hieu": {"pw": "251211", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-11"},
+"le-huy-hung": {"pw": "372012", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-12"},
+"do-duong-huy": {"pw": "281614", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-13"},
+"tran-chi-kien": {"pw": "210915", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-14"},
+"nguyen-duc-kien": {"pw": "392016", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-15"},
+"hoang-ngoc-lam": {"pw": "391818", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-16"},
+"le-cao-minh": {"pw": "321921", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-17"},
+"pham-quang-minh": {"pw": "500922", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-18"},
+"nguyen-duc-minh": {"pw": "411023", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-19"},
+"le-quang-minh": {"pw": "211925", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-20"},
+"hoang-nhat-nam": {"pw": "461026", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-21"},
+"luong-gia-nghia": {"pw": "230927", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-22"},
+"ta-phu-quang": {"pw": "511829", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-23"},
+"ta-dang-quyen": {"pw": "481630", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-24"},
+"khuc-nam-son": {"pw": "311531", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-25"},
+"luong-khanh-thien": {"pw": "311933", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-26"},
+"tang-quoc-thuc": {"pw": "351234", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-27"},
+"nguyen-khanh-toan": {"pw": "451635", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-28"},
+"nguyen-chi-trung": {"pw": "352036", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-29"},
+"nguyen-quoc-thanh-vinh": {"pw": "331037", "link": "https://geethafuneral.my.canva.site/boi-boi-boi/page-30"}
+};
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+if (!id || !data[id]) {
+  document.getElementById("title").innerHTML = "ID không hợp lệ.";
+} else {
+  document.getElementById("title").innerHTML = "Thư của: " + id.replace(/-/g, " ");
+}
+
+function check() {
+  if (!data[id]) return;
+  const correct = data[id].pw;
+  const pw = document.getElementById("pw").value;
+
+  if (pw === correct) {
+      window.location.href = data[id].link;
+  } else {
+      document.getElementById("error").innerText = "Sai mật khẩu, thử lại.";
+  }
+}
+</script>
+
+</body>
+</html>
